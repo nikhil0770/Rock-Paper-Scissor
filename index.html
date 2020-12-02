@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissor</title>
     <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
   </head>
   <script defer src="./main.js"></script>
   <body>
@@ -15,6 +21,23 @@
       <img src="./images/scissor.jfif" id="scissor" alt="Scissor" />
     </div>
     <div id="resdiv"></div>
-    <h3 id="result"></h3>
+    <h4 id="result"></h4>
+    <div id="summary" style="padding: 5px">
+      <table style="border: solid 1px black; margin: auto">
+        <tr>
+          <th>Wins</th>
+          <th>Loses</th>
+          <th>Draws</th>
+        </tr>
+        <tr>
+          <td id="winsc">0</td>
+          <td id="losesc">0</td>
+          <td id="drawsc">0</td>
+        </tr>
+      </table>
+    </div>
+    <div id="as">
+      <button id="restart">REPLAY</button>
+    </div>
   </body>
 </html>

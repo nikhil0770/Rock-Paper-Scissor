@@ -1,8 +1,13 @@
 document.querySelector("#rock").addEventListener("click", Rock);
 document.querySelector("#paper").addEventListener("click", Paper);
 document.querySelector("#scissor").addEventListener("click", Scissor);
+document.querySelector("#restart").addEventListener("click", Restart);
 
 let userchoice;
+let numofrounds = 0;
+let win = 0,
+  lose = 0,
+  draw = 0;
 function Rock() {
   userchoice = "rock";
   bot(userchoice);
@@ -21,6 +26,10 @@ const choices = {
   2: "scissor",
 };
 
+function Restart() {
+  window.location.reload();
+}
+
 function setupsection(userchoice, choice) {
   let x = document.getElementById("components");
   x.style.display = "none";
@@ -37,28 +46,85 @@ function setupsection(userchoice, choice) {
   document.getElementById("resdiv").appendChild(ele);
 }
 
+function clearbox() {
+  let ele = document.querySelector("#resdiv").querySelectorAll("img");
+  for (let i = 0; i < ele.length; i++) ele[i].remove();
+
+  let x = document.getElementById("components");
+  x.style.display = "flex";
+
+  document.getElementById("result").innerHTML = "";
+  numofrounds++;
+}
+
+function finalres() {
+  document.getElementById("resdiv").style.display = "none";
+  document.getElementById("summary").style.display = "none";
+
+  let x = document.getElementById("result");
+  if (win > lose) {
+    document.getElementById("result").innerHTML = "YOU WON!!";
+    x.style.fontSize = "2rem";
+    x.style.color = "green";
+  } else if (lose > win) {
+    document.getElementById("result").innerHTML = "YOU LOSE!!";
+    x.style.fontSize = "2rem";
+    x.style.color = "red";
+  } else {
+    document.getElementById("result").innerHTML = "YOU DREW!!";
+    x.style.fontSize = "2rem";
+    x.style.color = "blue";
+  }
+}
+
 function bot(userchoice) {
   let choice = Math.floor(Math.random() * 3);
   let botchoice = choices[choice];
   setupsection(userchoice, choice);
-  if (botchoice == userchoice)
+  if (botchoice == userchoice) {
     document.getElementById("result").innerHTML = "Draw";
+    draw++;
+    document.getElementById("drawsc").innerHTML = draw;
+  }
 
-  if (botchoice == "rock" && userchoice == "scissor")
+  if (botchoice == "rock" && userchoice == "scissor") {
     document.getElementById("result").innerHTML = "You Lose";
+    lose++;
+    document.getElementById("losesc").innerHTML = lose;
+  }
 
-  if (botchoice == "rock" && userchoice == "paper")
+  if (botchoice == "rock" && userchoice == "paper") {
     document.getElementById("result").innerHTML = "You Win";
+    win++;
+    document.getElementById("winsc").innerHTML = win;
+  }
 
-  if (botchoice == "paper" && userchoice == "scissor")
+  if (botchoice == "paper" && userchoice == "scissor") {
     document.getElementById("result").innerHTML = "You Win";
+    win++;
+    document.getElementById("winsc").innerHTML = win;
+  }
 
-  if (botchoice == "scissor" && userchoice == "paper")
+  if (botchoice == "scissor" && userchoice == "paper") {
     document.getElementById("result").innerHTML = "You Lose";
+    lose++;
+    document.getElementById("losesc").innerHTML = lose;
+  }
 
-  if (botchoice == "paper" && userchoice == "rock")
+  if (botchoice == "paper" && userchoice == "rock") {
     document.getElementById("result").innerHTML = "You Lose";
+    lose++;
+    document.getElementById("losesc").innerHTML = lose;
+  }
 
-  if (botchoice == "scissor" && userchoice == "rock")
+  if (botchoice == "scissor" && userchoice == "rock") {
     document.getElementById("result").innerHTML = "You Win";
+    win++;
+    document.getElementById("winsc").innerHTML = win;
+  }
+
+  setTimeout(() => {
+    if (numofrounds < 4) clearbox();
+    else finalres();
+  }, 1000);
 }
